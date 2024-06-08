@@ -1,0 +1,26 @@
+name: 'Action to validate masked input'
+description: 'Ingests the json masked value and validates'
+inputs:
+  json-value:
+    description: 'Json Value'
+    required: true
+runs:
+  using: 'composite'
+  steps:
+    - name: Check json value is populated
+      run: |
+        if [ -n ${{ inputs.json-value }} ]; then
+          echo "Json value is populated"
+        else
+          echo "Json value is empty"
+        fi
+      shell: bash
+
+    - name: Check json value is correct
+      run: |
+        if [ ${{ inputs.json-value }} == "jsonValue" ]; then
+          echo "Success - Input matches json value"
+        else
+          echo "Failure - Input doesn't match json value"
+        fi
+      shell: bash
